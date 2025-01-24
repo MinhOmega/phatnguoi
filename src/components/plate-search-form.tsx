@@ -59,10 +59,10 @@ export default function PlateSearchForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         <div>
-          <label htmlFor="plateNumber" className="block text-lg font-medium text-gray-700 mb-3">
-            <Car className="inline-block w-5 h-5 mr-2 text-blue-600" />
+          <label htmlFor="plateNumber" className="block text-base sm:text-lg font-medium text-gray-700 mb-2 sm:mb-3">
+            <Car className="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
             Biển số xe
           </label>
           <input
@@ -71,20 +71,20 @@ export default function PlateSearchForm() {
             name="plateNumber"
             required
             pattern="^[0-9]{2}[A-Z][0-9]?-[0-9]{5}$|^[0-9]{2}[A-Z][0-9]?-[0-9]{3}\.[0-9]{2}$|^[0-9]{2}[A-Z][0-9]?[0-9]{5}$"
-            className="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-            placeholder="Nhập biển số xe (VD: 75F2-17051, 75F2-170.51, 75F217051)"
+            className="w-full px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg border border-gray-300 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+            placeholder="Nhập biển số xe (VD: 75F2-17051)"
           />
         </div>
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-4 px-6 rounded-xl transition-all duration-300 text-lg flex items-center justify-center group disabled:opacity-50"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-3 sm:py-4 px-4 sm:px-6 rounded-lg sm:rounded-xl transition-all duration-300 text-base sm:text-lg flex items-center justify-center group disabled:opacity-50"
         >
           {isLoading ? (
-            <div className="animate-spin rounded-full h-6 w-6 border-4 border-white border-t-transparent"></div>
+            <div className="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-3 sm:border-4 border-white border-t-transparent"></div>
           ) : (
             <>
-              <Search className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 mr-2 group-hover:scale-110 transition-transform" />
               <span>Kiểm tra ngay</span>
             </>
           )}
@@ -93,30 +93,30 @@ export default function PlateSearchForm() {
 
       {/* Loading State */}
       {isLoading && (
-        <div className="flex justify-center items-center py-16">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"></div>
+        <div className="flex justify-center items-center py-12 sm:py-16">
+          <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-blue-600 border-t-transparent"></div>
         </div>
       )}
 
       {/* Error State */}
       {error && (
-        <div className="bg-red-50 border border-red-200 p-6 rounded-xl flex items-center mt-6">
-          <AlertCircle className="w-6 h-6 text-red-600 mr-3" />
-          <p className="text-red-700 text-lg">{error}</p>
+        <div className="bg-red-50 border border-red-200 p-4 sm:p-6 rounded-lg sm:rounded-xl flex items-center mt-4 sm:mt-6">
+          <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 mr-2 sm:mr-3 flex-shrink-0" />
+          <p className="text-red-700 text-base sm:text-lg">{error}</p>
         </div>
       )}
 
       {/* Results */}
       {violations && violations.length > 0 && (
-        <div className="space-y-6 mt-8">
+        <div className="space-y-4 sm:space-y-6 mt-6 sm:mt-8">
           {violations.map((violation, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="font-semibold text-xl text-gray-800 flex items-center">
-                  <AlertTriangle className="w-5 h-5 text-yellow-500 mr-2" />
+            <div key={index} className="bg-white rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-300">
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 mb-4 sm:mb-6">
+                <h3 className="font-semibold text-lg sm:text-xl text-gray-800 flex items-center">
+                  <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500 mr-2" />
                   Vi phạm {index + 1}/{violations.length}
                 </h3>
-                <span className={`px-4 py-2 rounded-full flex items-center ${
+                <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center justify-center sm:justify-start ${
                   violation['Trạng thái'].includes('Đã') 
                     ? 'text-green-700 bg-green-50 border border-green-200'
                     : 'text-yellow-700 bg-yellow-50 border border-yellow-200'
@@ -130,8 +130,8 @@ export default function PlateSearchForm() {
                 </span>
               </div>
 
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6">
                   <InfoCard
                     icon={<Car />}
                     label="Biển số"
@@ -170,16 +170,16 @@ export default function PlateSearchForm() {
                   value={violation['Đơn vị phát hiện vi phạm']}
                 />
 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <p className="font-medium text-gray-700 mb-2">
-                    <MapPinned className="inline-block w-5 h-5 mr-2 text-blue-600" />
+                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+                  <p className="font-medium text-gray-700 mb-2 text-sm sm:text-base">
+                    <MapPinned className="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
                     Nơi giải quyết:
                   </p>
-                  <ul className="space-y-2 pl-6">
+                  <ul className="space-y-2 pl-4 sm:pl-6 text-sm sm:text-base">
                     {Array.isArray(violation['Nơi giải quyết vụ việc']) 
                       ? violation['Nơi giải quyết vụ việc'].map((location, idx) => (
                           <li key={idx} className="text-gray-800 flex items-start">
-                            <Circle className="w-2 h-2 mt-2 mr-2 text-blue-600" />
+                            <Circle className="w-1.5 h-1.5 sm:w-2 sm:h-2 mt-2 mr-2 text-blue-600 flex-shrink-0" />
                             {location}
                           </li>
                         ))
@@ -194,9 +194,9 @@ export default function PlateSearchForm() {
       )}
 
       {violations && violations.length === 0 && (
-        <div className="bg-green-50 border border-green-200 p-6 rounded-xl flex items-center mt-6">
-          <CheckCircle2 className="w-6 h-6 text-green-600 mr-3" />
-          <p className="text-green-700 text-lg">Không tìm thấy thông tin vi phạm</p>
+        <div className="bg-green-50 border border-green-200 p-4 sm:p-6 rounded-lg sm:rounded-xl flex items-center mt-4 sm:mt-6">
+          <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 mr-2 sm:mr-3 flex-shrink-0" />
+          <p className="text-green-700 text-base sm:text-lg">Không tìm thấy thông tin vi phạm</p>
         </div>
       )}
     </div>
@@ -205,12 +205,12 @@ export default function PlateSearchForm() {
 
 function InfoCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="bg-gray-50 p-4 rounded-lg">
-      <p className="font-medium text-gray-700 mb-2">
-        <span className="inline-block w-5 h-5 mr-2 text-blue-600">{icon}</span>
+    <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+      <p className="font-medium text-gray-700 mb-1 sm:mb-2 text-sm sm:text-base">
+        <span className="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600">{icon}</span>
         {label}:
       </p>
-      <p className="text-gray-800">{value}</p>
+      <p className="text-gray-800 text-sm sm:text-base">{value}</p>
     </div>
   )
 } 

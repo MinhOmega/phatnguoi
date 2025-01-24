@@ -13,8 +13,8 @@ const faqItems: FAQItem[] = [
     question: 'Phạt Nguội Là Gì và Tại Sao Nó Quan Trọng?',
     content: (
       <div>
-        <h3 className="font-semibold text-gray-800 mb-3">Định Nghĩa Phạt Nguội</h3>
-        <p className="text-gray-700 mb-4">
+        <h2 className="font-semibold text-gray-800 mb-2 sm:mb-3 text-base sm:text-lg">Định Nghĩa Phạt Nguội</h2>
+        <p className="text-gray-700 mb-3 sm:mb-4">
           <strong>Phạt nguội</strong> là hình thức xử phạt các phương tiện giao thông sau khi vi phạm mà không cần đến việc cảnh sát giao thông trực tiếp dừng phương tiện. 
           Thông qua các hệ thống camera được lắp đặt trên các tuyến đường, các hành vi như vượt đèn đỏ, chạy quá tốc độ, và đi sai làn đường đều được ghi nhận.
         </p>
@@ -32,7 +32,7 @@ const faqItems: FAQItem[] = [
           Một trong những cách đơn giản nhất để <strong>kiểm tra phạt nguội ô tô</strong> hoặc <strong>xe máy</strong> là sử dụng các website chính thức như Cổng thông tin điện tử Cục CSGT.
         </p>
         <div className="bg-gray-50 p-4 rounded-lg mb-4">
-          <h4 className="font-semibold text-gray-800 mb-2">Bước Từng Bước Để Tra Cứu:</h4>
+          <h2 className="font-semibold text-gray-800 mb-2">Bước Từng Bước Để Tra Cứu:</h2>
           <ol className="list-decimal list-inside text-gray-700 space-y-2">
             <li>Truy cập website chính thức của Cục CSGT</li>
             <li>Nhập thông tin về phương tiện như biển số</li>
@@ -50,7 +50,7 @@ const faqItems: FAQItem[] = [
           Ngoài website, bạn cũng có thể tải ứng dụng <strong>Phạt Nguội Toàn Quốc</strong> trên cả nền tảng Android và iOS để kiểm tra vi phạm mọi lúc, mọi nơi.
         </p>
         <div className="bg-gray-50 p-4 rounded-lg">
-          <h4 className="font-semibold text-gray-800 mb-2">Lợi Ích Của Ứng Dụng:</h4>
+          <h2 className="font-semibold text-gray-800 mb-2">Lợi Ích Của Ứng Dụng:</h2>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-center">
               <Check className="w-4 h-4 text-blue-600 mr-2" />
@@ -79,17 +79,17 @@ export function FaqSection() {
   }
 
   return (
-    <div className="bg-white py-12">
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="space-y-4">
+    <div className="bg-white py-6 sm:py-8 md:py-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="space-y-3 sm:space-y-4">
           {faqItems.map((item, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg">
+            <div key={index} className="border border-gray-200 rounded-lg sm:rounded-xl">
               <button
-                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 focus:outline-none"
+                className="w-full px-4 sm:px-6 py-3 sm:py-4 text-left flex justify-between items-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-lg sm:rounded-xl transition-all duration-300"
                 onClick={() => toggleFaq(index)}
               >
-                <span className="text-lg font-semibold text-gray-800">{item.question}</span>
-                <ChevronDown className={`w-5 h-5 transform transition-transform duration-300 ease-in-out ${
+                <span className="text-base sm:text-lg font-semibold text-gray-800 pr-2">{item.question}</span>
+                <ChevronDown className={`w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 transform transition-transform duration-300 ease-in-out ${
                   openIndex === index ? 'rotate-180' : ''
                 }`} />
               </button>
@@ -98,7 +98,7 @@ export function FaqSection() {
                   openIndex === index ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                <div className="px-6 py-4 border-t">
+                <div className="px-4 sm:px-6 py-3 sm:py-4 border-t text-sm sm:text-base">
                   {item.content}
                 </div>
               </div>
