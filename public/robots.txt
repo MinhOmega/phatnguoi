@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://phatnguoi.vercel.app/sitemap.xml 
+Sitemap: https://phatnguoivn.vercel.app//sitemap.xml 

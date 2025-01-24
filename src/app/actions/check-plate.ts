@@ -13,10 +13,14 @@ interface ViolationResponse {
 }
 
 const validatePlateNumber = (plateNumber: string): boolean => {
-  // First check if plate matches format with separators
-  const withSeparatorsPattern = /^\d{2}[A-Z]-\d{3}\.\d{2}$/;
-  // Then check if plate matches format without separators
-  const withoutSeparatorsPattern = /^\d{2}[A-Z]\d{5,6}$/;
+  // Check formats with separators:
+  // 1. 75F2-17051 (5 digits after hyphen)
+  // 2. 75F2-170.51 (3 digits, dot, 2 digits)
+  const withSeparatorsPattern = /^\d{2}[A-Z][0-9]?-(\d{5}|\d{3}\.\d{2})$/;
+  
+  // Check format without separators:
+  // 1. 75F217051 (no separators)
+  const withoutSeparatorsPattern = /^\d{2}[A-Z][0-9]?\d{5}$/;
 
   return withSeparatorsPattern.test(plateNumber) || withoutSeparatorsPattern.test(plateNumber);
 };

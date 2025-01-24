@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://phatnguoi.vercel.app"),
+  metadataBase: new URL("https://phatnguoivn.vercel.app/"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
     description: "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
-    url: "https://phatnguoi.vercel.app",
+    url: "https://phatnguoivn.vercel.app/",
     siteName: "Tra cứu vi phạm giao thông",
     locale: "vi_VN",
     type: "website",
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   verification: {
-    google: "google-site-verification-code",
+    google: "7VSWE62mf-36m_9k7UVFkqQ3UMleu79PnejFhWINKt0",
   },
 };
 
