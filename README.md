@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tra Cứu Vi Phạm Giao Thông
 
-## Getting Started
+Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến, cho phép người dùng kiểm tra nhanh chóng các thông tin về phạt nguội và vi phạm giao thông.
 
-First, run the development server:
+## 🚀 Tính Năng
 
+- ✨ Tra cứu nhanh chóng thông tin phạt nguội
+- 🚗 Hỗ trợ nhiều định dạng biển số xe
+- 📱 Giao diện thân thiện, tương thích đa thiết bị
+- 🔍 Hiển thị chi tiết thông tin vi phạm
+- 🌐 Tích hợp với hệ thống dữ liệu CSGT
+
+## 🛠️ Công Nghệ Sử Dụng
+
+- [Next.js 15](https://nextjs.org/) - Framework React hiện đại
+- [React 19](https://reactjs.org/) - Thư viện JavaScript cho UI
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript với kiểu dữ liệu tĩnh
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS tiện ích
+- [Lucide Icons](https://lucide.dev/) - Bộ icon đẹp và nhẹ
+
+## 📦 Cài Đặt
+
+1. Clone dự án:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/minhomega/phatnguoi.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Cài đặt các dependencies:
+```bash
+cd phatnguoi
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Chạy môi trường development:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Truy cập [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+## 🌍 Triển Khai
 
-To learn more about Next.js, take a look at the following resources:
+Dự án được triển khai trên Vercel. Để triển khai:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Đẩy code lên GitHub
+2. Kết nối repository với Vercel
+3. Vercel sẽ tự động triển khai khi có thay đổi trên nhánh main
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Cấu Hình
 
-## Deploy on Vercel
+Các biến môi trường cần thiết:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+NEXT_PUBLIC_API_URL=https://api.checkphatnguoi.vn
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📝 Hướng Dẫn Sử Dụng
+
+1. Truy cập trang web
+2. Nhập biển số xe cần tra cứu (VD: 51F-123.45 hoặc 51F12345)
+3. Nhấn "Kiểm tra ngay"
+4. Xem kết quả hiển thị
+
+## 🤝 Đóng Góp
+
+Mọi đóng góp đều được chào đón! Vui lòng:
+
+1. Fork dự án
+2. Tạo nhánh tính năng (`git checkout -b feature/AmazingFeature`)
+3. Commit thay đổi (`git commit -m 'Add some AmazingFeature'`)
+4. Push lên nhánh (`git push origin feature/AmazingFeature`)
+5. Tạo Pull Request
+
+## 📄 Giấy Phép
+
+Dự án được phân phối dưới giấy phép MIT. Xem `LICENSE` để biết thêm thông tin.
+
+## 👤 Tác Giả
+
+**MinhVo**
+- GitHub: [@minhomega](https://github.com/minhomega)
+
+## ⭐️ Hỗ Trợ Dự Án
+
+Nếu dự án này giúp ích cho bạn, hãy cho nó một ngôi sao ⭐️
+
+## 📞 Liên Hệ
+
+Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào, vui lòng tạo issue hoặc liên hệ trực tiếp qua GitHub.
