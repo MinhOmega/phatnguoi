@@ -74,9 +74,9 @@ export default function PlateSearchForm({
             id="plateNumber"
             name="plateNumber"
             required
-            pattern="^[0-9]{2}[A-Z][0-9]?-[0-9]{5}$|^[0-9]{2}[A-Z][0-9]?-[0-9]{3}\.[0-9]{2}$|^[0-9]{2}[A-Z][0-9]?[0-9]{5}$"
+            pattern="^[0-9]{2}[A-Z][0-9]?-[0-9]{4,5}$|^[0-9]{2}[A-Z][0-9]?[0-9]{4,5}$"
             className="w-full px-4 sm:px-5 py-3 sm:py-4 text-base sm:text-lg border border-gray-300 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-            placeholder="Nhập biển số xe (VD: 11H1-11111)"
+            placeholder="Nhập biển số xe (VD: 11H1-1111 hoặc 11H-11111)"
           />
         </div>
         <button
