@@ -2,5 +2,15 @@
   "crons": [{
     "path": "/api/cron/send-notifications",
     "schedule": "0 0 * * 1"
-  }]
+  }],
+  "routes": [
+    {
+      "src": "/api/debug/env",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Authorization"
+      }
+    }
+  ]
 } 
