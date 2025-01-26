@@ -63,12 +63,12 @@ const transformViolationData = (data: RawViolationResponse): ViolationResponse =
 
 const validatePlateNumber = (plateNumber: string): boolean => {
   // Check formats with separators:
-  // 1. 75F2-17051 (5 digits after hyphen)
-  // 2. 75F2-170.51 (3 digits, dot, 2 digits)
-  const withSeparatorsPattern = /^\d{2}[A-Z][0-9]?-(\d{5}|\d{3}\.\d{2})$/;
+  // 1. 11H1-11111 (5 digits after hyphen)
+  // 2. 11H111111 (no separators)
+  const withSeparatorsPattern = /^\d{2}[A-Z][0-9]?-(\d{5}|\d{5})$/;
   
   // Check format without separators:
-  // 1. 75F217051 (no separators)
+  // 1. 11H111111 (no separators)
   const withoutSeparatorsPattern = /^\d{2}[A-Z][0-9]?\d{5}$/;
 
   return withSeparatorsPattern.test(plateNumber) || withoutSeparatorsPattern.test(plateNumber);

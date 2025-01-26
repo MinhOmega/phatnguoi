@@ -85,7 +85,7 @@ export function SubscriptionModal({ isOpen, onClose, plateNumber: initialPlateNu
               onChange={(e) => setPlateNumber(e.target.value)}
               required
               pattern="^[0-9]{2}[A-Z][0-9]?-[0-9]{5}$|^[0-9]{2}[A-Z][0-9]?-[0-9]{3}\.[0-9]{2}$|^[0-9]{2}[A-Z][0-9]?[0-9]{5}$"
-              placeholder="Nhập biển số xe (VD: 75F2-17051)"
+              placeholder="Nhập biển số xe (VD: 11H1-11111)"
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
