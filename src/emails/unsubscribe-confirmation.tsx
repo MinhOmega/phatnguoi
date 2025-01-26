@@ -7,25 +7,24 @@ import {
   Preview,
   Text,
 } from '@react-email/components';
-import { generateUnsubscribeHash } from '@/lib/hash';
 
-interface SubscriptionConfirmationEmailProps {
+interface UnsubscribeConfirmationEmailProps {
   email: string;
   plateNumber: string;
 }
 
-export const SubscriptionConfirmationEmail = ({
+export const UnsubscribeConfirmationEmail = ({
   email,
   plateNumber,
-}: SubscriptionConfirmationEmailProps) => {
+}: UnsubscribeConfirmationEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>Xác nhận đăng ký nhận thông báo vi phạm giao thông</Preview>
+      <Preview>Xác nhận hủy đăng ký nhận thông báo vi phạm giao thông</Preview>
       <Body style={main}>
         <Container style={container}>
           <Heading style={h1}>
-            Xác nhận đăng ký thành công
+            Xác nhận hủy đăng ký thành công
           </Heading>
 
           <Text style={text}>
@@ -33,7 +32,7 @@ export const SubscriptionConfirmationEmail = ({
           </Text>
 
           <Text style={text}>
-            Cảm ơn bạn đã đăng ký nhận thông báo vi phạm giao thông. Dưới đây là thông tin đăng ký của bạn:
+            Bạn đã hủy đăng ký nhận thông báo vi phạm giao thông thành công. Dưới đây là thông tin đăng ký đã hủy:
           </Text>
 
           <div style={infoCard}>
@@ -46,36 +45,26 @@ export const SubscriptionConfirmationEmail = ({
           </div>
 
           <Text style={text}>
-            Hệ thống sẽ gửi thông báo cho bạn vào mỗi thứ Hai hàng tuần nếu phát hiện có vi phạm mới.
+            Nếu bạn muốn đăng ký lại, vui lòng truy cập website của chúng tôi.
           </Text>
 
           <Text style={footer}>
             Trân trọng,<br />
             Hệ thống tra cứu vi phạm giao thông
           </Text>
-
-          <Text style={{ ...text, fontSize: '12px', color: '#6b7280', marginTop: '32px' }}>
-            Để hủy đăng ký nhận thông báo, vui lòng <a 
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/unsubscribe?hash=${generateUnsubscribeHash(email, plateNumber)}`}
-              style={{ color: '#2563eb', textDecoration: 'underline' }}
-            >
-              nhấn vào đây
-            </a>
-          </Text>
         </Container>
       </Body>
     </Html>
   );
-};
+}
 
 const main = {
-  backgroundColor: '#f6f9fc',
-  padding: '40px 0',
+  backgroundColor: '#f3f4f6',
+  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif',
 };
 
 const container = {
   backgroundColor: '#ffffff',
-  border: '1px solid #f0f0f0',
   borderRadius: '8px',
   margin: '0 auto',
   padding: '32px',

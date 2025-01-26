@@ -13,7 +13,7 @@ Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến, cho phé
 ## ✨ Tính Năng Chi Tiết
 
 ### 🔍 Tra Cứu Vi Phạm
-- Hỗ trợ nhiều định dạng biển số xe (VD: 51F-123.45, 51F12345)
+- Hỗ trợ nhiều định dạng biển số xe (VD: 11H1-1111, 11H11111, 11H-1111, 11H1111, 11HH11111, 11HH1111)
 - Hiển thị thông tin chi tiết về vi phạm:
   - Thời gian và địa điểm vi phạm
   - Loại phương tiện và màu biển số
@@ -101,10 +101,9 @@ yarn start
 # hoặc
 pnpm start
 ```
-
 ## 🌍 Triển Khai
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fminhomega%2Fphatnguoi&env=MONGODB_URI,EMAIL_USER,EMAIL_PASSWORD,NEXT_PUBLIC_API_URL,CRON_SECRET&project-name=phatnguoi&repository-name=phatnguoi)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fminhomega%2Fphatnguoi&env=MONGODB_URI,MAIL_SERVICE,MAIL_HOST,MAIL_PORT,MAIL_USER,MAIL_PASSWORD,NEXT_PUBLIC_API_URL,CRON_SECRET,UNSUBSCRIBE_SECRET,NEXT_PUBLIC_APP_URL&project-name=phatnguoi&repository-name=phatnguoi)
 
 Dự án được triển khai trên Vercel. Để triển khai:
 
@@ -115,10 +114,15 @@ Dự án được triển khai trên Vercel. Để triển khai:
 
 > **Lưu ý**: Đảm bảo đã cấu hình đầy đủ các biến môi trường trong phần Environment Variables của Vercel:
 > - `MONGODB_URI`: URL kết nối MongoDB
-> - `EMAIL_USER`: Email đăng nhập SMTP
-> - `EMAIL_PASSWORD`: Mật khẩu email SMTP
+> - `MAIL_SERVICE`: Dịch vụ email (mặc định: gmail)
+> - `MAIL_HOST`: Host SMTP (mặc định: smtp.gmail.com)
+> - `MAIL_PORT`: Port SMTP (mặc định: 465)
+> - `MAIL_USER`: Email đăng nhập SMTP
+> - `MAIL_PASSWORD`: Mật khẩu email SMTP
 > - `NEXT_PUBLIC_API_URL`: URL API của ứng dụng
 > - `CRON_SECRET`: Khóa bí mật cho Cron Job
+> - `UNSUBSCRIBE_SECRET`: Khóa bí mật cho chức năng hủy đăng ký
+> - `NEXT_PUBLIC_APP_URL`: URL của ứng dụng (mặc định là URL của Vercel sau khi deploy)
 
 ## 🔧 Cấu Hình
 
@@ -129,11 +133,18 @@ Các biến môi trường cần thiết trong file `.env`:
 MONGODB_URI=your_mongodb_connection_string
 
 # Email Service
-EMAIL_USER=your_smtp_username
-EMAIL_PASSWORD=your_smtp_password
+MAIL_SERVICE=your_email_service
+MAIL_HOST=your_smtp_host
+MAIL_PORT=your_smtp_port
+MAIL_USER=your_smtp_username
+MAIL_PASSWORD=your_smtp_password
 
 # API Configuration
 NEXT_PUBLIC_API_URL=your_api_url
+
+# App Configuration
+NEXT_PUBLIC_APP_URL=your_app_url
+UNSUBSCRIBE_SECRET=your_unsubscribe_secret
 
 # Cron Job
 CRON_SECRET=your_cron_secret
@@ -145,16 +156,18 @@ CRON_SECRET=your_cron_secret
 - `npm run build` - Build dự án cho production
 - `npm run start` - Chạy phiên bản production
 - `npm run lint` - Kiểm tra lỗi với ESLint
-- `npm run format` - Format code với Prettier
 
 ## 📝 Hướng Dẫn Sử Dụng
 
 ### Tra Cứu Vi Phạm
 1. Truy cập trang web
 2. Nhập biển số xe theo một trong các định dạng:
-   - 51F-123.45
-   - 51F12345
-   - 51F-12345
+   - 11H1-1111
+   - 11H11111
+   - 11H-1111
+   - 11H1111
+   - 11HH11111
+   - 11HH1111
 3. Nhấn "Kiểm tra ngay"
 4. Xem kết quả hiển thị chi tiết về các vi phạm (nếu có)
 

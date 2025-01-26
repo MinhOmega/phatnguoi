@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import { Subscription } from '@/models/subscription';
 import { checkPlateNumber } from '@/app/actions/check-plate';
-import nodemailer from 'nodemailer';
 import { render } from '@react-email/render';
 import { ViolationNotificationEmail } from '@/emails/violation-notification';
+import { generateUnsubscribeHash } from '@/lib/hash';
+import { sendEmail } from '@/lib/mailer';
 
 export async function GET(request: Request) {
   try {
@@ -19,15 +20,6 @@ export async function GET(request: Request) {
     // Get all subscriptions
     const subscriptions = await Subscription.find();
 
-    // Configure nodemailer
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-
     // Process each subscription
     for (const subscription of subscriptions) {
       try {
@@ -40,16 +32,23 @@ export async function GET(request: Request) {
             ViolationNotificationEmail({
               violations: result.data,
               plateNumber: subscription.plateNumber,
+              subscriberEmail: subscription.email,
             })
           );
 
           // Send email
-          await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: subscription.email,
-            subject: `Thông báo vi phạm giao thông - Biển số ${subscription.plateNumber}`,
-            html: emailHtml,
-          });
+          await sendEmail(
+            {
+              from: process.env.MAIL_USER,
+              to: subscription.email,
+              subject: `Thông báo vi phạm giao thông - Biển số ${subscription.plateNumber}`,
+              headers: {
+                'List-Unsubscribe': `<${process.env.NEXT_PUBLIC_APP_URL}/unsubscribe?hash=${generateUnsubscribeHash(subscription.email, subscription.plateNumber)}>`,
+                'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click'
+              }
+            },
+            emailHtml
+          );
         }
       } catch (error) {
         console.error(`Error processing subscription for ${subscription.email}:`, error);

@@ -12,15 +12,18 @@ import {
 } from '@react-email/components';
 import { ViolationResponse } from '@/app/actions/check-plate';
 import { formatDate } from '@/lib/utils';
+import { generateUnsubscribeHash } from "@/lib/hash";
 
 interface EmailTemplateProps {
   violations: ViolationResponse[];
   plateNumber: string;
+  subscriberEmail: string;
 }
 
 export const ViolationNotificationEmail = ({
   violations,
   plateNumber,
+  subscriberEmail,
 }: EmailTemplateProps) => {
   const previewText = violations.length > 0
     ? `Có ${violations.length} vi phạm mới cho biển số ${plateNumber}`
@@ -42,7 +45,7 @@ export const ViolationNotificationEmail = ({
           {/* Content Section */}
           <Section style={content}>
             <Text style={greeting}>
-              Kính gửi quý khách,
+              Kính gửi,
             </Text>
 
             <Text style={summary}>
@@ -107,6 +110,15 @@ export const ViolationNotificationEmail = ({
                 Email này được gửi tự động. Vui lòng không trả lời email này.
               </Text>
             </Section>
+
+            <Text style={{ fontSize: '12px', color: '#6b7280', marginTop: '32px' }}>
+              Để hủy đăng ký nhận thông báo, vui lòng <a 
+                href={`${process.env.NEXT_PUBLIC_APP_URL}/unsubscribe?hash=${generateUnsubscribeHash(subscriberEmail, plateNumber)}`}
+                style={{ color: '#2563eb', textDecoration: 'underline' }}
+              >
+                nhấn vào đây
+              </a>
+            </Text>
           </Section>
         </Container>
       </Body>

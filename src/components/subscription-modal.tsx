@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
+import { subscribe } from '@/app/actions/subscription'
 
 interface SubscriptionModalProps {
   isOpen: boolean
@@ -32,18 +33,10 @@ export function SubscriptionModal({ isOpen, onClose, plateNumber: initialPlateNu
     setError(null)
 
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, plateNumber }),
-      })
+      const result = await subscribe(email, plateNumber)
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Có lỗi xảy ra')
+      if (!result.success) {
+        throw new Error(result.error)
       }
 
       setSuccess(true)
