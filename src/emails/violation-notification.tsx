@@ -12,6 +12,7 @@ import {
 } from '@react-email/components';
 import { ViolationResponse } from '@/app/actions/check-plate';
 import { formatDate } from '@/lib/utils';
+import { generateUnsubscribeHash } from "@/lib/hash";
 
 interface EmailTemplateProps {
   violations: ViolationResponse[];
@@ -112,7 +113,7 @@ export const ViolationNotificationEmail = ({
 
             <Text style={{ fontSize: '12px', color: '#6b7280', marginTop: '32px' }}>
               Để hủy đăng ký nhận thông báo, vui lòng <a 
-                href={`${process.env.NEXT_PUBLIC_APP_URL}/unsubscribe?email=${subscriberEmail}&plateNumber=${plateNumber}`}
+                href={`${process.env.NEXT_PUBLIC_APP_URL}/unsubscribe?hash=${generateUnsubscribeHash(subscriberEmail, plateNumber)}`}
                 style={{ color: '#2563eb', textDecoration: 'underline' }}
               >
                 nhấn vào đây
