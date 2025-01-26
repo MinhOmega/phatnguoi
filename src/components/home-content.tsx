@@ -36,6 +36,7 @@ export function HomeContent() {
           </p>
           <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-gray-500">
             <p>Developed by <a href="https://github.com/minhomega" className="text-blue-600 hover:underline">MinhVo</a></p>
+            <p>UI design by <a href="#" className="text-blue-600 hover:underline">Hoàng Phúc - FoxN</a></p>
           </div>
           
           {/* Add Subscription Button */}
