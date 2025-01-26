@@ -14,13 +14,23 @@ import {
   Building2, 
   Circle, 
   Palette, 
-  MapPinned 
+  MapPinned,
+  Bell
 } from 'lucide-react'
 
-export default function PlateSearchForm() {
+interface PlateSearchFormProps {
+  setShowSubscriptionModal: (show: boolean) => void
+  setCurrentPlateNumber: (plateNumber: string) => void
+}
+
+export default function PlateSearchForm({ 
+  setShowSubscriptionModal, 
+  setCurrentPlateNumber 
+}: PlateSearchFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [violations, setViolations] = useState<ViolationResponse[] | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [plateNumber, setPlateNumber] = useState('')
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -30,6 +40,7 @@ export default function PlateSearchForm() {
 
     const formData = new FormData(event.currentTarget)
     const plateNumber = formData.get('plateNumber') as string
+    setPlateNumber(plateNumber)
 
     try {
       const result = await checkPlateNumber(plateNumber)
@@ -43,6 +54,11 @@ export default function PlateSearchForm() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleSubscribe = () => {
+    setCurrentPlateNumber(plateNumber)
+    setShowSubscriptionModal(true)
   }
 
   return (
@@ -97,6 +113,15 @@ export default function PlateSearchForm() {
       {/* Results */}
       {violations && violations.length > 0 && (
         <div className="space-y-4 sm:space-y-6 mt-6 sm:mt-8">
+          <div className="flex justify-end">
+            <button
+              onClick={handleSubscribe}
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+            >
+              <Bell className="w-4 h-4 mr-2" />
+              Đăng ký nhận thông báo
+            </button>
+          </div>
           {violations.map((violation, index) => (
             <div key={index} className="bg-white rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6 md:p-8 hover:shadow-xl transition-all duration-300">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 mb-4 sm:mb-6">
@@ -191,7 +216,13 @@ export default function PlateSearchForm() {
   )
 }
 
-function InfoCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+interface InfoCardProps {
+  icon: React.ReactNode
+  label: string
+  value: string
+}
+
+function InfoCard({ icon, label, value }: InfoCardProps) {
   return (
     <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
       <p className="font-medium text-gray-700 mb-1 sm:mb-2 text-sm sm:text-base">
