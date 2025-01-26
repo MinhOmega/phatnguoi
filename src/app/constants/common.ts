@@ -1,0 +1,1 @@
+export const domains = ["phatnguoigiaothong.vercel.app", "csgt.vercel.app", "tracuuphatnguoi.vercel.app", "phatnguoivn.vercel.app"];

@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { domains } from "./constants/common";
 
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
+
 
 export const metadata: Metadata = {
   title: {
     default: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
-    template: "%s | Tra cứu vi phạm giao thông"
+    template: "%s | Tra cứu vi phạm giao thông",
   },
-  description: "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
+  description:
+    "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
   keywords: [
     "tra cứu phạt nguội",
     "kiểm tra vi phạm giao thông",
@@ -19,7 +22,10 @@ export const metadata: Metadata = {
     "xử phạt giao thông",
     "CSGT",
     "cảnh sát giao thông",
-    "tra cứu online"
+    "tra cứu online",
+    "phạt nguội giao thông",
+    "tra cứu CSGT",
+    "kiểm tra phạt giao thông",
   ],
   authors: [{ name: "MinhVo", url: "https://github.com/minhomega" }],
   creator: "MinhVo",
@@ -32,10 +38,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://phatnguoivn.vercel.app/"),
   alternates: {
     canonical: "/",
+    languages: {
+      vi: domains.map((domain) => ({ url: `https://${domain}`, hrefLang: "vi" })),
+    },
   },
   openGraph: {
     title: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
-    description: "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
+    description:
+      "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
     url: "https://phatnguoivn.vercel.app/",
     siteName: "Tra cứu vi phạm giao thông",
     locale: "vi_VN",
@@ -52,7 +62,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
-    description: "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội nhanh chóng và chính xác.",
+    description:
+      "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội nhanh chóng và chính xác.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -72,9 +83,7 @@ export const metadata: Metadata = {
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-    apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     other: [
       {
         rel: "mask-icon",
@@ -88,11 +97,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi" suppressHydrationWarning>
       <head>
