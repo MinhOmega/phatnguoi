@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { domains } from "./constants/common";
+import Footer from '@/components/footer'
 
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
 
@@ -104,7 +105,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#ffffff" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
