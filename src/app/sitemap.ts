@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/contact',
     '/privacy',
     '/terms',
+    '/unsubscribe',
   ];
 
   const sitemapEntries = domains.flatMap(domain =>
