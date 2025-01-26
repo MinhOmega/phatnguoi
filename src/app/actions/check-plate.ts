@@ -1,6 +1,19 @@
 "use server";
 
-interface ViolationResponse {
+export interface ViolationResponse {
+  plateNumber: string;
+  plateColor: string;
+  vehicleType: string;
+  violationTime: string;
+  violationLocation: string;
+  violationBehavior: string;
+  detectionUnit: string;
+  resolutionPlace: string[] | string;
+  status: string;
+}
+
+// Add this interface for the raw API response
+interface RawViolationResponse {
   "Biển kiểm soát": string;
   "Màu biển": string;
   "Loại phương tiện": string;
@@ -11,6 +24,42 @@ interface ViolationResponse {
   "Nơi giải quyết vụ việc": string[] | string;
   "Trạng thái": string;
 }
+
+// Update the type guard
+const isViolationResponse = (data: unknown): data is RawViolationResponse => {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    "Biển kiểm soát" in data &&
+    "Màu biển" in data &&
+    "Loại phương tiện" in data &&
+    "Thời gian vi phạm" in data &&
+    "Địa điểm vi phạm" in data &&
+    "Hành vi vi phạm" in data &&
+    "Đơn vị phát hiện vi phạm" in data &&
+    "Nơi giải quyết vụ việc" in data &&
+    "Trạng thái" in data
+  );
+};
+
+// Update the transform function
+const transformViolationData = (data: RawViolationResponse): ViolationResponse => {
+  if (!isViolationResponse(data)) {
+    throw new Error("Invalid response format");
+  }
+
+  return {
+    plateNumber: data["Biển kiểm soát"],
+    plateColor: data["Màu biển"],
+    vehicleType: data["Loại phương tiện"],
+    violationTime: data["Thời gian vi phạm"],
+    violationLocation: data["Địa điểm vi phạm"],
+    violationBehavior: data["Hành vi vi phạm"],
+    detectionUnit: data["Đơn vị phát hiện vi phạm"],
+    resolutionPlace: data["Nơi giải quyết vụ việc"],
+    status: data["Trạng thái"],
+  };
+};
 
 const validatePlateNumber = (plateNumber: string): boolean => {
   // Check formats with separators:
@@ -41,6 +90,10 @@ const fetchViolationData = async (plateNumber: string): Promise<ViolationRespons
         Accept: "application/json",
       },
       body: new URLSearchParams({ bienso: plateNumber }),
+      next: {
+        revalidate: 86400,
+        tags: [`violations-${plateNumber}`],
+      },
     });
 
     if (!response.ok) {
@@ -48,14 +101,20 @@ const fetchViolationData = async (plateNumber: string): Promise<ViolationRespons
     }
 
     const data = await response.json();
-    return data.data || [];
+    return (data.data || []).map(transformViolationData);
   } catch (error) {
     console.error("Error fetching violation data:", error);
     throw new Error("Không thể kết nối đến máy chủ");
   }
 };
 
-export async function checkPlateNumber(plateNumber: string) {
+export interface CheckPlateResult {
+  success: boolean;
+  data?: ViolationResponse[];
+  error?: string;
+}
+
+export async function checkPlateNumber(plateNumber: string): Promise<CheckPlateResult> {
   try {
     if (!plateNumber) {
       throw new Error("Vui lòng nhập biển số xe");
@@ -67,7 +126,6 @@ export async function checkPlateNumber(plateNumber: string) {
       throw new Error("Định dạng biển số không hợp lệ");
     }
 
-    // Format plate number before sending to API
     const formattedPlate = formatPlateNumber(normalizedPlate);
     const violations = await fetchViolationData(formattedPlate);
     return { success: true, data: violations };

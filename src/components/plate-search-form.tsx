@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { checkPlateNumber } from '@/app/actions/check-plate'
+import { checkPlateNumber, type ViolationResponse } from '@/app/actions/check-plate'
 import { formatDate } from '@/lib/utils'
 import { 
   Car, 
@@ -17,21 +17,9 @@ import {
   MapPinned 
 } from 'lucide-react'
 
-interface ViolationData {
-  'Biển kiểm soát': string
-  'Màu biển': string
-  'Loại phương tiện': string
-  'Thời gian vi phạm': string
-  'Địa điểm vi phạm': string
-  'Hành vi vi phạm': string
-  'Đơn vị phát hiện vi phạm': string
-  'Nơi giải quyết vụ việc': string[] | string
-  'Trạng thái': string
-}
-
 export default function PlateSearchForm() {
   const [isLoading, setIsLoading] = useState(false)
-  const [violations, setViolations] = useState<ViolationData[] | null>(null)
+  const [violations, setViolations] = useState<ViolationResponse[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -117,16 +105,16 @@ export default function PlateSearchForm() {
                   Vi phạm {index + 1}/{violations.length}
                 </h3>
                 <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full flex items-center justify-center sm:justify-start ${
-                  violation['Trạng thái'].includes('Đã') 
+                  violation.status.includes('Đã') 
                     ? 'text-green-700 bg-green-50 border border-green-200'
                     : 'text-yellow-700 bg-yellow-50 border border-yellow-200'
                 }`}>
-                  {violation['Trạng thái'].includes('Đã') ? (
+                  {violation.status.includes('Đã') ? (
                     <CheckCircle2 className="w-4 h-4 mr-1" />
                   ) : (
                     <Clock className="w-4 h-4 mr-1" />
                   )}
-                  {violation['Trạng thái']}
+                  {violation.status}
                 </span>
               </div>
 
@@ -135,39 +123,39 @@ export default function PlateSearchForm() {
                   <InfoCard
                     icon={<Car />}
                     label="Biển số"
-                    value={violation['Biển kiểm soát']}
+                    value={violation.plateNumber}
                   />
                   <InfoCard
                     icon={<Palette />}
                     label="Màu biển"
-                    value={violation['Màu biển']}
+                    value={violation.plateColor}
                   />
                   <InfoCard
                     icon={<Car />}
                     label="Loại xe"
-                    value={violation['Loại phương tiện']}
+                    value={violation.vehicleType}
                   />
                   <InfoCard
                     icon={<Clock />}
                     label="Thời gian"
-                    value={formatDate(violation['Thời gian vi phạm'])}
+                    value={formatDate(violation.violationTime)}
                   />
                 </div>
 
                 <InfoCard
                   icon={<MapPin />}
                   label="Địa điểm"
-                  value={violation['Địa điểm vi phạm']}
+                  value={violation.violationLocation}
                 />
                 <InfoCard
                   icon={<AlertCircle />}
                   label="Hành vi vi phạm"
-                  value={violation['Hành vi vi phạm']}
+                  value={violation.violationBehavior}
                 />
                 <InfoCard
                   icon={<Building2 />}
                   label="Đơn vị phát hiện"
-                  value={violation['Đơn vị phát hiện vi phạm']}
+                  value={violation.detectionUnit}
                 />
 
                 <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
@@ -176,14 +164,14 @@ export default function PlateSearchForm() {
                     Nơi giải quyết:
                   </p>
                   <ul className="space-y-2 pl-4 sm:pl-6 text-sm sm:text-base">
-                    {Array.isArray(violation['Nơi giải quyết vụ việc']) 
-                      ? violation['Nơi giải quyết vụ việc'].map((location, idx) => (
+                    {Array.isArray(violation.resolutionPlace) 
+                      ? violation.resolutionPlace.map((location, idx) => (
                           <li key={idx} className="text-gray-800 flex items-start">
                             <Circle className="w-1.5 h-1.5 sm:w-2 sm:h-2 mt-2 mr-2 text-blue-600 flex-shrink-0" />
                             {location}
                           </li>
                         ))
-                      : <li className="text-gray-800">{violation['Nơi giải quyết vụ việc']}</li>
+                      : <li className="text-gray-800">{violation.resolutionPlace}</li>
                     }
                   </ul>
                 </div>
