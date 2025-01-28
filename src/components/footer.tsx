@@ -5,54 +5,70 @@ import { Github } from 'lucide-react'
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t">
+    <footer className="bg-background border-t" role="contentinfo" aria-label="Footer">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <h3 className="font-semibold text-gray-900 mb-3">Tra Cứu Vi Phạm Giao Thông</h3>
-            <p className="text-gray-600 text-sm">
+            <h2 className="font-semibold text-foreground mb-3 text-lg">Tra Cứu Vi Phạm Giao Thông</h2>
+            <p className="text-muted-foreground text-sm">
               Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến, giúp người dân dễ dàng kiểm tra các thông tin về phạt nguội.
             </p>
           </div>
 
           {/* Links */}
-          <div className="col-span-1">
-            <h3 className="font-semibold text-gray-900 mb-3">Liên Kết</h3>
-            <ul className="space-y-2">
+          <nav className="col-span-1" aria-label="Footer navigation">
+            <h3 className="font-semibold text-foreground mb-3">Liên Kết</h3>
+            <ul className="space-y-2" role="list">
               <li>
-                <Link href="/about" className="text-gray-600 hover:text-blue-600 text-sm">
+                <Link 
+                  href="/about" 
+                  className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
+                  aria-label="Đến trang giới thiệu"
+                >
                   Giới thiệu
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-blue-600 text-sm">
+                <Link 
+                  href="/contact" 
+                  className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
+                  aria-label="Đến trang liên hệ"
+                >
                   Liên hệ
                 </Link>
               </li>
             </ul>
-          </div>
+          </nav>
 
           {/* Legal */}
-          <div className="col-span-1">
-            <h3 className="font-semibold text-gray-900 mb-3">Pháp Lý</h3>
-            <ul className="space-y-2">
+          <nav className="col-span-1" aria-label="Legal links">
+            <h3 className="font-semibold text-foreground mb-3">Pháp Lý</h3>
+            <ul className="space-y-2" role="list">
               <li>
-                <Link href="/privacy" className="text-gray-600 hover:text-blue-600 text-sm">
+                <Link 
+                  href="/privacy" 
+                  className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
+                  aria-label="Đọc chính sách bảo mật"
+                >
                   Chính sách bảo mật
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-gray-600 hover:text-blue-600 text-sm">
+                <Link 
+                  href="/terms" 
+                  className="text-muted-foreground hover:text-primary transition-colors duration-200 text-sm"
+                  aria-label="Đọc điều khoản sử dụng"
+                >
                   Điều khoản sử dụng
                 </Link>
               </li>
             </ul>
-          </div>
+          </nav>
         </div>
 
         <div className="border-t mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Tra Cứu Vi Phạm Giao Thông. All rights reserved.
           </p>
           <div className="flex items-center mt-4 sm:mt-0">
@@ -60,9 +76,11 @@ const Footer = () => {
               href="https://github.com/minhomega"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-blue-600"
+              className="text-muted-foreground hover:text-primary transition-colors duration-200"
+              aria-label="Visit our GitHub repository"
             >
-              <Github className="w-5 h-5" />
+              <Github className="w-5 h-5" aria-hidden="true" />
+              <span className="sr-only">GitHub repository</span>
             </a>
           </div>
         </div>
@@ -71,4 +89,4 @@ const Footer = () => {
   )
 }
 
-export default Footer 
+export default Footer

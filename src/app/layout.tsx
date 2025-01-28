@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { domains } from "./constants/common";
-import Footer from '@/components/footer'
+import Footer from "@/components/footer";
+import { ThemeProvider } from "@/components/theme/provider";
 
 const inter = Inter({ subsets: ["latin", "vietnamese"] });
-
 
 export const metadata: Metadata = {
   title: {
@@ -106,7 +106,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={inter.className}>
-        <main>{children}</main>
+        <main>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            {children}
+          </ThemeProvider>
+        </main>
         <Footer />
       </body>
     </html>
