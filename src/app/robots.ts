@@ -1,5 +1,4 @@
 import { MetadataRoute } from 'next'
-import { domains } from './constants/common'
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
@@ -7,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/', '/_next/'],
     },
-    sitemap: domains.map(domain => `https://${domain}/sitemap.xml`),
-    host: 'phatnguoivn.vercel.app',
+    sitemap: `${process.env.NEXT_PUBLIC_APP_URL}/sitemap.xml`,
+    host: process.env.NEXT_PUBLIC_APP_URL,
   }
 } 

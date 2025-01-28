@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { domains } from "./constants/common";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme/provider";
 
@@ -36,18 +35,15 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://phatnguoivn.vercel.app/"),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_APP_URL}`),
   alternates: {
     canonical: "/",
-    languages: {
-      vi: domains.map((domain) => ({ url: `https://${domain}`, hrefLang: "vi" })),
-    },
   },
   openGraph: {
     title: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
     description:
       "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
-    url: "https://phatnguoivn.vercel.app/",
+    url: `${process.env.NEXT_PUBLIC_APP_URL}`,
     siteName: "Tra cứu vi phạm giao thông",
     locale: "vi_VN",
     type: "website",
