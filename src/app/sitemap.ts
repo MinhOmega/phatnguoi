@@ -1,5 +1,4 @@
 import { MetadataRoute } from 'next'
-import { domains } from './constants/common';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -11,14 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/unsubscribe',
   ];
 
-  const sitemapEntries = domains.flatMap(domain =>
-    routes.map(route => ({
-      url: `https://${domain}${route}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: route === '' ? 1 : 0.8,
-    }))
-  );
+  const sitemapEntries = routes.map(route => ({
+    url: `${process.env.NEXT_PUBLIC_APP_URL}${route}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily' as const,
+    priority: route === '' ? 1 : 0.8,
+  }));
 
   return sitemapEntries;
 } 
