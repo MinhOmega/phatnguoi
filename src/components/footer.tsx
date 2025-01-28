@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Github } from 'lucide-react'
+import { Github, AlertTriangle } from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -14,6 +14,24 @@ const Footer = () => {
             <p className="text-muted-foreground text-sm">
               Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến, giúp người dân dễ dàng kiểm tra các thông tin về phạt nguội.
             </p>
+            <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/50 rounded-lg border border-yellow-200 dark:border-yellow-800">
+              <div className="flex items-start">
+                <AlertTriangle className="w-5 h-5 text-yellow-600 dark:text-yellow-400 mt-0.5 mr-2 flex-shrink-0" aria-hidden="true" />
+                <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                  Trang web này sử dụng API của bên thứ 3, chỉ với mục đích học tập và tham khảo. Vui lòng sử dụng{' '}
+                  <a 
+                    href="https://www.csgt.vn/tra-cuu-phuong-tien-vi-pham.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium underline hover:text-yellow-800 dark:hover:text-yellow-200"
+                    aria-label="Đến trang tra cứu chính thức của Cục CSGT"
+                  >
+                    trang web chính thức của Cục CSGT
+                  </a>
+                  {' '}để tra cứu chính xác.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Links */}
