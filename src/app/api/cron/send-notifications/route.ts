@@ -19,6 +19,7 @@ export async function GET(request: Request) {
 
     // Get all subscriptions
     const subscriptions = await Subscription.find();
+    console.log("🚀 ~ route.ts:22 ~ GET ~ subscriptions:", subscriptions)
 
     // Process each subscription
     for (const subscription of subscriptions) {
