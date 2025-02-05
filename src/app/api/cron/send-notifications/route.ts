@@ -8,27 +8,47 @@ import { generateUnsubscribeHash } from '@/lib/hash';
 import { sendEmail } from '@/lib/mailer';
 
 export async function GET(request: Request) {
+  console.log('🔄 Starting cron job execution:', new Date().toISOString());
+  
   try {
-    // Verify cron secret to prevent unauthorized access
+    // Verify cron secret
     const authHeader = request.headers.get('authorization');
+    console.log('🔑 Auth Header present:', !!authHeader);
+    
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+      console.error('❌ Unauthorized cron job access attempt');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Connect to database
+    console.log('📡 Connecting to database...');
     await connectToDatabase();
+    console.log('✅ Database connected');
 
-    // Get all subscriptions
+    // Get subscriptions
     const subscriptions = await Subscription.find();
-    console.log("🚀 ~ route.ts:22 ~ GET ~ subscriptions:", subscriptions)
+    console.log(`📋 Found ${subscriptions.length} subscriptions to process`);
 
-    // Process each subscription
+    // Track statistics
+    let successCount = 0;
+    let errorCount = 0;
+    let emailsSent = 0;
+
+    // Process subscriptions
     for (const subscription of subscriptions) {
+      console.log(`\n🔍 Processing subscription for ${subscription.email} (${subscription.plateNumber})`);
+      
       try {
         // Check violations
         const result = await checkPlateNumber(subscription.plateNumber);
+        console.log(`📊 Violation check result for ${subscription.plateNumber}:`, {
+          success: result.success,
+          violationsCount: result.data?.length || 0
+        });
         
-        if (result.success && result.data) {
-          // Render email template
+        if (result.success && result.data && result.data.length > 0) {
+          // Render and send email
+          console.log(`📧 Preparing email for ${subscription.email}`);
           const emailHtml = await render(
             ViolationNotificationEmail({
               violations: result.data,
@@ -37,7 +57,6 @@ export async function GET(request: Request) {
             })
           );
 
-          // Send email
           await sendEmail(
             {
               from: process.env.MAIL_USER,
@@ -50,15 +69,40 @@ export async function GET(request: Request) {
             },
             emailHtml
           );
+          
+          emailsSent++;
+          console.log(`✅ Email sent successfully to ${subscription.email}`);
+          successCount++;
+        } else {
+          console.log(`ℹ️ No violations found for ${subscription.plateNumber}`);
+          successCount++;
         }
       } catch (error) {
-        console.error(`Error processing subscription for ${subscription.email}:`, error);
+        errorCount++;
+        console.error(`❌ Error processing subscription for ${subscription.email}:`, error);
       }
     }
 
-    return NextResponse.json({ message: 'Notifications sent successfully' });
+    // Log final statistics
+    console.log('\n📊 Cron job completion statistics:', {
+      totalProcessed: subscriptions.length,
+      successCount,
+      errorCount,
+      emailsSent,
+      completedAt: new Date().toISOString()
+    });
+
+    return NextResponse.json({
+      message: 'Notifications sent successfully',
+      statistics: {
+        totalProcessed: subscriptions.length,
+        successCount,
+        errorCount,
+        emailsSent
+      }
+    });
   } catch (error) {
-    console.error('Cron job error:', error);
+    console.error('❌ Critical cron job error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 } 

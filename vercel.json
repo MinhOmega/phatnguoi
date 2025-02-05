@@ -1,8 +1,10 @@
 {
-  "crons": [{
-    "path": "/api/cron/send-notifications",
-    "schedule": "*/10 * * * *"
-  }],
+  "crons": [
+    {
+      "path": "/api/cron/send-notifications",
+      "schedule": "0 0 * * 1"
+    }
+  ],
   "routes": [
     {
       "src": "/api/debug/env",
@@ -13,4 +15,4 @@
       }
     }
   ]
-} 
+}
