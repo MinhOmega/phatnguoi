@@ -69,7 +69,7 @@ const validatePlateNumber = (plateNumber: string): boolean => {
   // 4. 11AB-11111 (2 letters, 5 digits)
   // 5. 11AB-111.11 (2 letters, 3 digits, dot, 2 digits)
   const withSeparatorsPattern = /^\d{2}([A-Z]\d?|[A-Z]{2})-(\d{4}|\d{5}|\d{3}\.\d{2})$/;
-  
+
   // Check format without separators:
   // 1. 11H11111 (1 letter, 5 digits)
   // 2. 11AB11111 (2 letters, 5 digits)
@@ -85,8 +85,10 @@ const formatPlateNumber = (plateNumber: string): string => {
 
 const fetchViolationData = async (plateNumber: string): Promise<ViolationResponse[]> => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/phatnguoi`;
-
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -98,8 +100,10 @@ const fetchViolationData = async (plateNumber: string): Promise<ViolationRespons
         revalidate: 86400,
         tags: [`violations-${plateNumber}`],
       },
+      signal: controller.signal,
     });
 
+    clearTimeout(timeoutId);
     if (!response.ok) {
       throw new Error(`Server responded with status: ${response.status}`);
     }
@@ -108,6 +112,9 @@ const fetchViolationData = async (plateNumber: string): Promise<ViolationRespons
     return (data.data || []).map(transformViolationData);
   } catch (error) {
     console.error("Error fetching violation data:", error);
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error("Yêu cầu đã hết thời gian chờ, vui lòng thử lại");
+    }
     throw new Error("Không thể kết nối đến máy chủ");
   }
 };
