@@ -8,15 +8,16 @@ const inter = Inter({ subsets: ["latin", "vietnamese"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
-    template: "%s | Tra cứu vi phạm giao thông",
+    default: "Tra cứu phạt nguội | Kiểm tra vi phạm giao thông toàn quốc",
+    template: "%s | Tra cứu phạt nguội",
   },
   description:
-    "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
+    "Hệ thống tra cứu phạt nguội trực tuyến cho xe ô tô, xe máy tại Việt Nam. Kiểm tra vi phạm giao thông nhanh chóng, chính xác tại TP HCM, Hà Nội, Đà Nẵng và các tỉnh thành.",
   keywords: [
     "tra cứu phạt nguội",
     "kiểm tra vi phạm giao thông",
     "phạt nguội",
+    "kiểm tra phạt nguội",
     "vi phạm giao thông",
     "tra cứu biển số xe",
     "xử phạt giao thông",
@@ -24,8 +25,19 @@ export const metadata: Metadata = {
     "cảnh sát giao thông",
     "tra cứu online",
     "phạt nguội giao thông",
+    "tra cứu vi phạm",
+    "phạt nguội ô tô",
+    "phạt nguội xe máy",
+    "CSGT online",
     "tra cứu CSGT",
     "kiểm tra phạt giao thông",
+    "kiểm tra vi phạm",
+    "phạt giao thông",
+    "tra cứu biển số",
+    "vi phạm ô tô",
+    "vi phạm xe máy",
+    "phạt nguội HCM",
+    "phạt nguội Hà Nội",
   ],
   authors: [{ name: "MinhVo", url: "https://github.com/minhomega" }],
   creator: "MinhVo",
@@ -40,11 +52,11 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
+    title: "Tra cứu phạt nguội | Kiểm tra vi phạm giao thông toàn quốc",
     description:
-      "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội, xem thông tin vi phạm giao thông nhanh chóng và chính xác.",
+      "Hệ thống tra cứu phạt nguội trực tuyến cho xe ô tô, xe máy tại Việt Nam. Kiểm tra vi phạm giao thông nhanh chóng, chính xác tại TP HCM, Hà Nội, Đà Nẵng và các tỉnh thành.",
     url: `${process.env.NEXT_PUBLIC_APP_URL}`,
-    siteName: "Tra cứu vi phạm giao thông",
+    siteName: "Kiểm tra phạt nguội",
     locale: "vi_VN",
     type: "website",
     images: [
@@ -52,15 +64,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Tra cứu vi phạm giao thông",
+        alt: "Tra cứu phạt nguội và vi phạm giao thông",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tra cứu vi phạm giao thông | Kiểm tra phạt nguội",
+    title: "Tra cứu phạt nguội | Kiểm tra vi phạm giao thông toàn quốc",
     description:
-      "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến. Kiểm tra phạt nguội nhanh chóng và chính xác.",
+      "Hệ thống tra cứu phạt nguội trực tuyến cho xe ô tô, xe máy tại Việt Nam. Kiểm tra nhanh chóng và chính xác.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -100,6 +112,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="theme-color" content="#ffffff" />
         <link rel="manifest" href="/site.webmanifest" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "url": "https://kiemtraphatnguoi.vercel.app",
+              "name": "Tra cứu phạt nguội",
+              "description": "Hệ thống tra cứu phạt nguội trực tuyến cho xe ô tô, xe máy tại Việt Nam",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": "https://kiemtraphatnguoi.vercel.app/search?q={search_term_string}"
+                },
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
       </head>
       <body className={inter.className}>
         <main>

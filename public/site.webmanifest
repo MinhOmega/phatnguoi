@@ -1,7 +1,7 @@
 {
-  "name": "Tra cứu vi phạm giao thông",
+  "name": "Tra cứu phạt nguội | Kiểm tra vi phạm giao thông",
   "short_name": "Phạt nguội",
-  "description": "Hệ thống tra cứu thông tin vi phạm giao thông trực tuyến",
+  "description": "Hệ thống tra cứu phạt nguội trực tuyến cho xe ô tô, xe máy tại Việt Nam. Kiểm tra vi phạm giao thông nhanh chóng, chính xác.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -11,12 +11,14 @@
     {
       "src": "/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 } 
