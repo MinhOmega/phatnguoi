@@ -6,6 +6,7 @@ import { FaqSection } from '@/components/faq-section'
 import { SubscriptionModal } from '@/components/subscription-modal'
 import { ShieldIcon, Bell } from 'lucide-react'
 import ThemeToggler from '@/components/theme/toggler'
+import CheckSeo from './check-seo'
 
 export function HomeContent() {
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false)
@@ -76,6 +77,7 @@ export function HomeContent() {
           plateNumber={currentPlateNumber}
         />
       </div>
+      <CheckSeo />
     </div>
   )
 } 
