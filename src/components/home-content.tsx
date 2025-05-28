@@ -13,7 +13,7 @@ export function HomeContent() {
   const [currentPlateNumber, setCurrentPlateNumber] = useState('')
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-6 sm:py-8 md:py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-6 sm:py-8 md:py-12 relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Add Theme Toggler */}
         <div className="flex justify-end mb-4">
@@ -77,7 +77,7 @@ export function HomeContent() {
           plateNumber={currentPlateNumber}
         />
       </div>
-      <CheckSeo />
+      <CheckSeo className="absolute -z-10 top-0 left-0 w-full h-full overflow-hidden" />
     </div>
   )
 } 
